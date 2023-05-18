@@ -1,3 +1,10 @@
+#grid-button {
+    border: 1px solid black;
+    border-radius: 3px;
+    padding: 3px;
+    margin: 10px;
+}
+
 .grid {
     display: flex;
     flex-direction: column;

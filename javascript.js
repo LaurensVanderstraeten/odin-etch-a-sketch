@@ -1,6 +1,7 @@
-const NUMBER_OF_ROWS = 16;
-const NUMBER_OF_COLUMNS = 16;
+const INITIAL_NUMBER_OF_ROWS = 16;
+const INITIAL_NUMBER_OF_COLUMNS = 16;
 const container = document.querySelector('#container');
+const gridButton = document.querySelector('#grid-button');
 let grid;
 
 function hoverOverEvent() {
@@ -27,6 +28,10 @@ class Grid {
     createHtmlElement() {
         this.#htmlElement = document.createElement('div');
         this.#htmlElement.classList.add('grid');
+    }
+
+    removeGrid() {
+        this.getHtmlElement().remove();
     }
 
 }
@@ -85,9 +90,18 @@ class Square {
 
 }
 
+function generateGridEvent() {
+    grid.removeGrid();
+    let gridSize = window.prompt('Please enter the size of the grid');
+    grid = new Grid(gridSize, gridSize);
+    container.appendChild(grid.getHtmlElement());
+}
+
 main();
 
 function main() {
-    grid = new Grid(NUMBER_OF_ROWS, NUMBER_OF_COLUMNS);
+    grid = new Grid(INITIAL_NUMBER_OF_ROWS, INITIAL_NUMBER_OF_COLUMNS);
     container.appendChild(grid.getHtmlElement());
+    gridButton.addEventListener('click', generateGridEvent);
 }
+    
