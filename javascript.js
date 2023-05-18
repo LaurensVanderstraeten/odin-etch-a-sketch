@@ -3,6 +3,10 @@ const NUMBER_OF_COLUMNS = 16;
 const container = document.querySelector('#container');
 let grid;
 
+function hoverOverEvent() {
+    this.classList.add('hover-over-effect');
+}
+
 class Grid {
 
     #rows;
@@ -61,8 +65,8 @@ class Square {
 
     constructor(parentRow) {
         this.#parentRow = parentRow;
-        this.#htmlElement 
         this.createHtmlElement();
+        this.addEventListeners();
     }
 
     getHtmlElement() {
@@ -73,6 +77,10 @@ class Square {
         this.#htmlElement = document.createElement('div');
         this.#htmlElement.classList.add('square');
         this.#parentRow.getHtmlElement().appendChild(this.getHtmlElement());
+    }
+
+    addEventListeners() {
+        this.getHtmlElement().addEventListener('mouseover', hoverOverEvent)
     }
 
 }
