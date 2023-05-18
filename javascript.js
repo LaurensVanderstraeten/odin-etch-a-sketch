@@ -8,16 +8,21 @@ class Grid {
     #rows;
     #htmlElement;
 
-    constructor(htmlElement, numberOfRows, numberOfColumns) {
+    constructor(numberOfRows, numberOfColumns) {
         this.#rows = new Array(numberOfRows);
-        this.#htmlElement = this.createHTMLElement();
+        this.createHtmlElement();
         for (let rowNumber = 1; rowNumber <= numberOfRows; rowNumber++) {
             this.#rows.push(new Row(this, numberOfColumns));
         }
     }
 
-    createHTMLElement(){
+    getHtmlElement() {
+        return this.#htmlElement;
+    }
 
+    createHtmlElement() {
+        this.#htmlElement = document.createElement('div');
+        this.#htmlElement.classList.add('grid');
     }
 
 }
@@ -29,18 +34,24 @@ class Row {
     #htmlElement
 
     constructor(parentGrid, numberOfColumns) {
-        this.parentGrid = parentGrid;
+        this.#parentGrid = parentGrid;
         this.#squares = new Array(numberOfColumns);
-        this.#htmlElement = this.createHTMLElement();
+        this.createHtmlElement();
         for (let columnNumber = 1; columnNumber <= numberOfColumns; columnNumber++) {
             this.#squares.push(new Square(this));
         }
     }
 
-    createHTMLElement(){
-
+    getHtmlElement() {
+        return this.#htmlElement;
     }
-    
+
+    createHtmlElement() {
+        this.#htmlElement = document.createElement('div');
+        this.#htmlElement.classList.add('row');
+        this.#parentGrid.getHtmlElement().appendChild(this.getHtmlElement());
+    }
+
 }
 
 class Square {
@@ -50,11 +61,18 @@ class Square {
 
     constructor(parentRow) {
         this.#parentRow = parentRow;
-        this.#htmlElement = this.createHTMLElement();
+        this.#htmlElement 
+        this.createHtmlElement();
     }
 
-    createHTMLElement(){
+    getHtmlElement() {
+        return this.#htmlElement;
+    }
 
+    createHtmlElement() {
+        this.#htmlElement = document.createElement('div');
+        this.#htmlElement.classList.add('square');
+        this.#parentRow.getHtmlElement().appendChild(this.getHtmlElement());
     }
 
 }
@@ -62,5 +80,6 @@ class Square {
 main();
 
 function main() {
-    grid = new Grid(container, NUMBER_OF_ROWS, NUMBER_OF_COLUMNS);
+    grid = new Grid(NUMBER_OF_ROWS, NUMBER_OF_COLUMNS);
+    container.appendChild(grid.getHtmlElement());
 }
